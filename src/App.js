@@ -1,10 +1,11 @@
 import './App.css';
 import Header from './component/Header';
 import {useState} from 'react';
-import Taskss from './component/Tasks'
+import Tasks from './component/Tasks'
+import AddTaskForm from './component/AddTaskForm';
 
 function App() {
-  const [tasks, setTask] = useState([
+  const [tasks, setTasks] = useState([
     {
         id : 1,
         text:"community meeting",
@@ -26,10 +27,21 @@ function App() {
     }
 
 ])
+
+const DeleteTask = (id) => {
+  setTasks(tasks.filter((task) => task.id !== id));
+}
+
+const addTask = (newTask) => {
+  setTasks([...tasks, newTask])
+}
+
+
   return (
     <>
     <Header/>
-    <Taskss tasks = {tasks}/>
+    <AddTaskForm addTask={addTask}></AddTaskForm>
+    <Tasks tasks={tasks} onDelete={DeleteTask}/>
     </>
   );
 }
